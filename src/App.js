@@ -73,7 +73,6 @@ function App() {
           data = spaceXData?.filter((item) => item?.upcoming === true);
           setSpaceXData(data);
         } else {
-          console.log(res?.data);
           setSpaceXData(res?.data || []);
         }
         setLoading(false);
@@ -89,7 +88,6 @@ function App() {
   return (
     <div className="App mt-5">
       <h1 className="text-center mb-4">SpaceX</h1>
-      {JSON.stringify(currentPage, null, 2)}
 
       <div className="d-flex justify-content-between mx-auto w-75 mb-4">
         <Select
