@@ -52,9 +52,11 @@ function App() {
   useEffect(() => {
     fetchSpaceXData();
     setLoading(true);
-  }, [filterLaunches?.value]);
+  }, [filterLaunches?.value, currentPage]);
 
-  let url = `https://api.spacexdata.com/v3/launches?limit=10&offset=${currentPage}`;
+  let url = `https://api.spacexdata.com/v3/launches?limit=10&offset=${
+    currentPage * 10
+  }`;
 
   const fetchSpaceXData = () => {
     axios
@@ -87,6 +89,7 @@ function App() {
   return (
     <div className="App mt-5">
       <h1 className="text-center mb-4">SpaceX</h1>
+      {JSON.stringify(currentPage, null, 2)}
 
       <div className="d-flex justify-content-between mx-auto w-75 mb-4">
         <Select
@@ -130,7 +133,7 @@ function App() {
         <Pagination
           activePage={currentPage}
           itemsCountPerPage={10}
-          totalItemsCount={spaceXData?.length}
+          totalItemsCount={110}
           onChange={setCurrentPageNo}
           nextPageText="Next"
           prevPageText="Prev"
