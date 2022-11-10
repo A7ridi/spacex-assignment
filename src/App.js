@@ -47,14 +47,14 @@ function App() {
     label: "All Launches",
     value: "all",
   });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     fetchSpaceXData();
     setLoading(true);
   }, [filterLaunches?.value]);
 
-  let url = `https://api.spacexdata.com/v3/launches`;
+  let url = `https://api.spacexdata.com/v3/launches?limit=10&offset=${currentPage}`;
 
   const fetchSpaceXData = () => {
     axios
