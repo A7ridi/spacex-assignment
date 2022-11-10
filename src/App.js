@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TableFormat from "./Table";
 import Select from "react-select";
+import Pagination from "react-js-pagination";
 
 const customStyles2 = {
 	container: () => ({
@@ -46,6 +47,7 @@ function App() {
 		label: "All Launches",
 		value: "all",
 	});
+	const [currentPage, setCurrentPage] = useState(1);
 
 	useEffect(() => {
 		fetchSpaceXData();
@@ -75,6 +77,10 @@ function App() {
 				setLoading(false);
 			})
 			.catch((err) => console.log(err));
+	};
+	
+	const setCurrentPageNo = (e) => {
+		setCurrentPage(e);
 	};
 
 	return (
@@ -120,6 +126,20 @@ function App() {
 
 			<div className="w-75 pl-5 pr-5 mx-auto border h-100">
 				<TableFormat spaceXData={spaceXData} loading={loading} />
+				<Pagination
+								activePage={currentPage}
+								itemsCountPerPage={10}
+								totalItemsCount={spaceXData?.length}
+								onChange={setCurrentPageNo}
+								nextPageText="Next"
+								prevPageText="Prev"
+								firstPageText="First"
+								lastPageText="Last"
+								itemClass="page-item"
+								linkClass="page-link"
+								activeClass="pageItemActive"
+								activeLinkClass="pageLinkActive"
+							/>
 			</div>
 		</div>
 	);
